@@ -1,0 +1,71 @@
+PART 1 OF THE CODE 
+
+//Code developed by Upangshu Basak
+import java.util.Scanner;
+public class ATMSystem 
+{
+    public static void main(String[] args) 
+    {
+        Scanner in = new Scanner(System.in);
+        ATM atm = new ATM();
+        int userId;
+        int userPin;
+        int Bank_no;
+        String bankname;
+        System.out.println("Welcome to the ATM System"); 
+        System.out.print("Enter Bank Number: ");
+        Bank_no=in.nextInt();
+        if(Bank_no==0045)
+        {
+            bankname="STATE BANK OF INDIA";
+        }
+        else
+        {
+            bankname="Other Bank";
+        }
+        System.out.print("Enter User ID: ");
+        userId=in.nextInt();
+        System.out.print("Enter User PIN: ");
+        userPin=in.nextInt();
+        if (atm.authenticateUser(userId, userPin)) 
+        {
+            boolean continueTransaction = true;
+            while (continueTransaction)
+            {
+                System.out.println("\nChoose an option:");
+                System.out.println("1. Transaction History");
+                System.out.println("2. Withdraw");
+                System.out.println("3. Deposit");
+                System.out.println("4. Transfer");
+                System.out.println("5. Exit");
+                System.out.print("Enter your choice: ");
+                int choice=in.nextInt();
+                switch (choice) 
+                {
+                    case 1:
+                        atm.showTransactionHistory();
+                        break;
+                    case 2:
+                        atm.withdraw();
+                        break;
+                    case 3:
+                        atm.deposit();
+                        break;
+                    case 4:
+                        atm.transfer();
+                        break;
+                    case 5:
+                        continueTransaction = false;
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            }
+        }
+        else
+        {
+            System.out.println("Authentication failed. Exiting.");
+        }
+        in.close();
+    }
+}
