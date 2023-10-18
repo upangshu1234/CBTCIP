@@ -46,7 +46,7 @@ public class ATM {
     }
     public void withdraw() 
     {
-        System.out.print("Enter the amount to withdraw: $");
+        System.out.print("Enter the amount to withdraw: ");
         double amount=in.nextDouble();
         if (amount > 0 && amount <= balance) 
         {
@@ -60,7 +60,7 @@ public class ATM {
     }
     public void deposit() 
     {
-        System.out.print("Enter the amount to deposit: $");
+        System.out.print("Enter the amount to deposit: ");
         double amount=in.nextDouble();
         if (amount > 0)
         {
