@@ -1,0 +1,95 @@
+PART 2 of the Code 
+
+
+//code developed by Upangshu Basak
+import java.util.ArrayList;
+import java.util.List;
+import java.util.*;
+public class ATM {
+    public int userId;
+    public int userPin;
+    public double balance;
+    String bankname;
+    static final int Bank_no=0045;
+    private List<String> transactionHistory;
+    Scanner in=new Scanner(System.in);
+    public ATM() 
+    {
+        this.userId = 12345;
+        this.userPin = 1234;
+        this.balance = 1000.0;
+        this.transactionHistory = new ArrayList<>();
+        if(Bank_no==0045)
+        {
+            bankname="STATE BANK OF INDIA";
+        }
+        else
+        {
+            bankname="Other Bank";
+        }
+    }
+    public boolean authenticateUser(int userId, int userPin)
+    {
+        if (this.userId == userId && this.userPin == userPin)
+        {
+            return true;
+        }
+        return false;
+    }
+    public void showTransactionHistory() 
+    {
+        System.out.println("Transaction History:");
+        for (String transaction : transactionHistory) 
+        {
+            System.out.println(transaction);
+        }
+    }
+    public void withdraw() 
+    {
+        System.out.print("Enter the amount to withdraw: $");
+        double amount=in.nextDouble();
+        if (amount > 0 && amount <= balance) 
+        {
+            balance -= amount;
+            System.out.println("Withdrawal successful.");
+        } 
+        else
+        {
+            System.out.println("Invalid amount or insufficient funds.");
+        }
+    }
+    public void deposit() 
+    {
+        System.out.print("Enter the amount to deposit: $");
+        double amount=in.nextDouble();
+        if (amount > 0)
+        {
+            balance += amount;
+            System.out.println("Deposit successful.");
+        } 
+        else 
+        {
+            System.out.println("Invalid amount. Please enter a positive value.");
+        }
+    }
+    public void transfer () 
+    {
+    double transferAmount;
+    int bankNumber;
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Please enter transfer amount: ");
+        transferAmount = input.nextDouble();
+        System.out.println("Please enter recipient's bank number: ");
+        bankNumber = input.nextInt();
+        if (bankNumber == Bank_no) 
+        {
+            System.out.println("Your funds will transfer instantly, you and your recipient share the same bank!");
+            System.out.println("Bank name: " + bankname);
+        } else 
+        {
+            System.out.println("Your funds will transfer in 2-3 business days.");
+        }
+    }
+    }
+}
