@@ -1,0 +1,167 @@
+PART 1 OF THE CODE 
+
+//Code developed by Upangshu Basak
+import java.util.Scanner;
+public class ATMSystem 
+{
+    public static void main(String[] args) 
+    {
+        Scanner in = new Scanner(System.in);
+        ATM atm = new ATM();
+        int userId;
+        int userPin;
+        int Bank_no;
+        String bankname;
+        System.out.println("Welcome to the ATM System"); 
+        System.out.print("Enter Bank Number: ");
+        Bank_no=in.nextInt();
+        if(Bank_no==0045)
+        {
+            bankname="STATE BANK OF INDIA";
+        }
+        else
+        {
+            bankname="Other Bank";
+        }
+        System.out.print("Enter User ID: ");
+        userId=in.nextInt();
+        System.out.print("Enter User PIN: ");
+        userPin=in.nextInt();
+        if (atm.authenticateUser(userId, userPin)) 
+        {
+            boolean continueTransaction = true;
+            while (continueTransaction)
+            {
+                System.out.println("\nChoose an option:");
+                System.out.println("1. Transaction History");
+                System.out.println("2. Withdraw");
+                System.out.println("3. Deposit");
+                System.out.println("4. Transfer");
+                System.out.println("5. Exit");
+                System.out.print("Enter your choice: ");
+                int choice=in.nextInt();
+                switch (choice) 
+                {
+                    case 1:
+                        atm.showTransactionHistory();
+                        break;
+                    case 2:
+                        atm.withdraw();
+                        break;
+                    case 3:
+                        atm.deposit();
+                        break;
+                    case 4:
+                        atm.transfer();
+                        break;
+                    case 5:
+                        continueTransaction = false;
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+            }
+        }
+        else
+        {
+            System.out.println("Authentication failed. Exiting.");
+        }
+        in.close();
+    }
+}
+
+PART 2 of the Code 
+
+
+//code developed by Upangshu Basak
+import java.util.ArrayList;
+import java.util.List;
+import java.util.*;
+public class ATM {
+    public int userId;
+    public int userPin;
+    public double balance;
+    String bankname;
+    static final int Bank_no=0045;
+    private List<String> transactionHistory;
+    Scanner in=new Scanner(System.in);
+    public ATM() 
+    {
+        this.userId = 12345;
+        this.userPin = 1234;
+        this.balance = 1000.0;
+        this.transactionHistory = new ArrayList<>();
+        if(Bank_no==0045)
+        {
+            bankname="STATE BANK OF INDIA";
+        }
+        else
+        {
+            bankname="Other Bank";
+        }
+    }
+    public boolean authenticateUser(int userId, int userPin)
+    {
+        if (this.userId == userId && this.userPin == userPin)
+        {
+            return true;
+        }
+        return false;
+    }
+    public void showTransactionHistory() 
+    {
+        System.out.println("Transaction History:");
+        for (String transaction : transactionHistory) 
+        {
+            System.out.println(transaction);
+        }
+    }
+    public void withdraw() 
+    {
+        System.out.print("Enter the amount to withdraw: ");
+        double amount=in.nextDouble();
+        if (amount > 0 && amount <= balance) 
+        {
+            balance -= amount;
+            System.out.println("Withdrawal successful.");
+        } 
+        else
+        {
+            System.out.println("Invalid amount or insufficient funds.");
+        }
+    }
+    public void deposit() 
+    {
+        System.out.print("Enter the amount to deposit: ");
+        double amount=in.nextDouble();
+        if (amount > 0)
+        {
+            balance += amount;
+            System.out.println("Deposit successful.");
+        } 
+        else 
+        {
+            System.out.println("Invalid amount. Please enter a positive value.");
+        }
+    }
+    public void transfer () 
+    {
+    double transferAmount;
+    int bankNumber;
+    {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Please enter transfer amount: ");
+        transferAmount = input.nextDouble();
+        System.out.println("Please enter recipient's bank number: ");
+        bankNumber = input.nextInt();
+        if (bankNumber == Bank_no) 
+        {
+            System.out.println("Your funds will transfer instantly, you and your recipient share the same bank!");
+            System.out.println("Bank name: " + bankname);
+        } else 
+        {
+            System.out.println("Your funds will transfer in 2-3 business days.");
+        }
+    }
+    }
+}
